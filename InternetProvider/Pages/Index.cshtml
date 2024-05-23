@@ -4,7 +4,26 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="Tasks">
+    <div class="btn-group" role="group">
+        <a asp-page="/Tasks/Task1" class="btn btn-primary btn-lg me-3" role="button" data-bs-toggle="button" onclick="">Task 1</a>
+        <a asp-page="/Tasks/Task2" class="btn btn-primary btn-lg me-3" role="button" data-bs-toggle="button">Task 2</a>
+        <a asp-page="/Tasks/Task3" class="btn btn-primary btn-lg me-3" role="button" data-bs-toggle="button">Task 3</a>
+        <a asp-page="/Tasks/Task4" class="btn btn-primary btn-lg me-3" role="button" data-bs-toggle="button">Task 4</a>
+    </div>
 </div>
+	
+<style>
+    .Tasks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    margin: 0;
+        padding-bottom: 15%;
+}
+.btn{
+    padding: 60px;
+   
+}
+</style>

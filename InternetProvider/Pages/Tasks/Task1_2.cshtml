@@ -1,0 +1,54 @@
+﻿@page
+@model InternetProvider.Pages.Tasks.Task1_2Model
+@{
+}
+
+<h2>Выберите параметры для отображения сделок</h2>
+<form method="get" asp-page-handler="ShowDeals">
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" name="StartDate" value="@Model.StartDate.ToString("yyyy-MM-dd")">
+
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" name="EndDate" value="@Model.EndDate.ToString("yyyy-MM-dd")">
+
+    <label for="tariffNumber">Tariff Number:</label>
+    <select id="tariffNumber" name="TariffNumber">
+        <option value="1">Tariff 1</option>
+        <option value="2">Tariff 2</option>
+        <option value="3">Tariff 3</option>
+        <option value="4">Tariff 4</option>
+        <option value="5">Tariff 5</option>
+        <!-- Добавьте другие варианты тарифов -->
+    </select>
+
+    <button type="submit">Show Deals</button>
+</form>
+
+@if (Model.Deals != null && Model.Deals.Any())
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Contract Number</th>
+                <th>Start Date</th>
+                <th>Tariff Number</th>
+                <!-- Добавьте другие заголовки столбцов -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var deal in Model.Deals)
+            {
+                <tr>
+                    <td>@deal.НомерДоговора</td>
+                    <td>@deal.ДатаЗаключения</td>
+                    <td>@deal.НомерТарифа</td>
+                    <!-- Добавьте другие столбцы -->
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (Model.Deals != null)
+{
+    <p>No deals found.</p>
+}

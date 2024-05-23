@@ -1,0 +1,68 @@
+﻿@page
+@model InternetProvider.Pages.ClientTable.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Client</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Client.Фамилия" class="control-label"></label>
+                <input asp-for="Client.Фамилия" class="form-control" />
+                <span asp-validation-for="Client.Фамилия" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Client.Имя" class="control-label"></label>
+                <input asp-for="Client.Имя" class="form-control" />
+                <span asp-validation-for="Client.Имя" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Client.Отчество" class="control-label"></label>
+                <input asp-for="Client.Отчество" class="form-control" />
+                <span asp-validation-for="Client.Отчество" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Client.Адрес" class="control-label"></label>
+                <input asp-for="Client.Адрес" class="form-control" />
+                <span asp-validation-for="Client.Адрес" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Client.НомерТелефона" class="control-label"></label>
+                <input asp-for="Client.НомерТелефона" class="form-control" />
+                <span asp-validation-for="Client.НомерТелефона" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Client.ЭлектроннаяПочта" class="control-label"></label>
+                <input asp-for="Client.ЭлектроннаяПочта" class="form-control" />
+                <span asp-validation-for="Client.ЭлектроннаяПочта" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Client.ДатаРождения" class="control-label"></label>
+                <input asp-for="Client.ДатаРождения" class="form-control" />
+                <span asp-validation-for="Client.ДатаРождения" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Client.НомерДоговора" class="control-label"></label>
+                <select asp-for="Client.НомерДоговора" class ="form-control" asp-items="ViewBag.НомерДоговора"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,60 @@
+﻿@page
+@model InternetProvider.Pages.Tasks.Task2Model
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+
+<h2>Выберите интервал дат</h2>
+<form method="get">
+    <label for="startDate">Начальная дата:</label>
+    <input type="date" id="startDate" name="StartDate" value="@Model.StartDate.ToString("yyyy-MM-dd")">
+
+    <label for="endDate">Конечная дата:</label>
+    <input type="date" id="endDate" name="EndDate" value="@Model.EndDate.ToString("yyyy-MM-dd")">
+
+    <button type="submit">Показать использование тарифов</button>
+</form>
+
+@if (Model.TariffUsages != null && Model.TariffUsages.Any())
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Месяц</th>
+                <th>Тариф №1</th>
+                <th>Тариф №2</th>
+                <th>Тариф №3</th>
+                <th>Тариф №4</th>
+                <th>Тариф №5</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var month in Model.TariffUsages.First().MonthlyUsage.Keys.OrderBy(k => DateTime.ParseExact(k, "yyyy-M", null)))
+            {
+                <tr>
+                    @* <td>@kvp.Key</td> *@
+                    <td>@month</td>
+                    <td>@Model.TariffUsages[0].MonthlyUsage.GetValueOrDefault(month, 0)</td>
+                    <td>@Model.TariffUsages[1].MonthlyUsage.GetValueOrDefault(month, 0)</td>
+                    <td>@Model.TariffUsages[2].MonthlyUsage.GetValueOrDefault(month, 0)</td>
+                    <td>@Model.TariffUsages[3].MonthlyUsage.GetValueOrDefault(month, 0)</td>
+                    <td>@Model.TariffUsages[4].MonthlyUsage.GetValueOrDefault(month, 0)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

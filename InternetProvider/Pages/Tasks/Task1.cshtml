@@ -1,0 +1,69 @@
+﻿@page
+@model InternetProvider.Pages.Tasks.Task1Model
+@{
+}
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+
+<h2>Задание 1: пользователь выбирает интервал времени и тариф. На выходе получает таблицу с номерами договоров, которые за данный промежуток времени выбрали данный тариф.</h2>
+<form method="get" asp-page-handler="ShowDeals">
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" name="StartDate">
+
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" name="EndDate">
+
+    <label for="tariffNumber">Tariff Number:</label>
+    <select id="tariffNumber" name="TariffNumber">
+        <option value="1">Tariff 1</option>
+        <option value="2">Tariff 2</option>
+        <option value="3">Tariff 3</option>
+        <option value="4">Tariff 4</option>
+        <option value="5">Tariff 5</option>
+    </select>
+
+    <button type="submit">Show Deals</button>
+</form>
+
+@if (Model.Deals != null && Model.Deals.Any())
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Contract Number</th>
+                <th>Start Date</th>
+                <th>Tariff Number</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var deal in Model.Deals)
+            {
+                <tr>
+                    <td>@deal.НомерДоговора</td>
+                    <td>@deal.ДатаЗаключения</td>
+                    <td>@deal.НомерТарифа</td>                  
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No deals found.</p>
+}
+

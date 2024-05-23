@@ -1,0 +1,60 @@
+﻿@page
+@model InternetProvider.Pages.Tasks.Task4Model
+@{
+    
+}
+
+<h2>Выберите интервал дат для отображения суммы платежей по тарифам</h2>
+<form method="get">
+    <label for="startDate">Начальная дата:</label>
+    <input type="date" id="startDate" name="StartDate" value="@Model.StartDate.ToString("yyyy-MM-dd")">
+
+    <label for="endDate">Конечная дата:</label>
+    <input type="date" id="endDate" name="EndDate" value="@Model.EndDate.ToString("yyyy-MM-dd")">
+
+    <button type="submit">Показать суммы</button>
+</form>
+
+@if (Model.TariffSums != null && Model.TariffSums.Any())
+{
+    <div id="tariffSumChartContainer" style="height: 400px; width: 100%;"></div>
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var tariffSumData = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.TariffSums.Select(kvp => new { name = "Тариф " + kvp.Key, y = kvp.Value })));
+
+            Highcharts.chart('tariffSumChartContainer', {
+                chart: {
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Суммы платежей по тарифам'
+                },
+                series: [{
+                    name: 'Сумма',
+                    colorByPoint: true,
+                    data: tariffSumData
+                }],
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+}
+else
+{
+    <p>Нет данных за выбранный период.</p>
+}

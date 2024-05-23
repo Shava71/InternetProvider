@@ -1,0 +1,46 @@
+﻿@page
+@model InternetProvider.Pages.Tasks.Task3Model
+@{
+}
+
+<h2>Выберите интервал дат</h2>
+<form method="get">
+    <label for="startDate">Начальная дата:</label>
+    <input type="date" id="startDate" name="StartDate" value="@Model.StartDate.ToString("yyyy-MM-dd")">
+
+    <label for="endDate">Конечная дата:</label>
+    <input type="date" id="endDate" name="EndDate" value="@Model.EndDate.ToString("yyyy-MM-dd")">
+
+    <button type="submit">Показать график</button>
+</form>
+
+@if (Model.Payments != null && Model.Payments.Any())
+{
+    <div id="paymentsChartContainer" style="height: 400px; width: 100%;"></div>
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var chart = Highcharts.chart('paymentsChartContainer', {
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: 'График платежей по датам'
+                },
+                xAxis: {
+                    categories: @Html.Raw(Json.Serialize(Model.Payments.Select(p => p.Дата.ToString("yyyy-MM-dd"))))
+                        },
+                yAxis: {
+                    title: {
+                        text: 'Сумма платежа'
+                    }
+                },
+                series: [{
+                    name: 'Сумма',
+                    data: @Html.Raw(Json.Serialize(Model.Payments.Select(p => (double)p.Сумма)))
+                        }]
+            });
+        });
+    </script>
+}

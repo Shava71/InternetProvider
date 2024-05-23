@@ -1,0 +1,78 @@
+﻿@page
+@model InternetProvider.Pages.ClientTable.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].Фамилия)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].Имя)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].Отчество)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].Адрес)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].НомерТелефона)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].ЭлектроннаяПочта)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].ДатаРождения)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client[0].НомерДоговораNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Client) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Фамилия)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Имя)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Отчество)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Адрес)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.НомерТелефона)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ЭлектроннаяПочта)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ДатаРождения)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.НомерДоговораNavigation.НомерДоговора)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.НомерКлиента">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.НомерКлиента">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.НомерКлиента">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
