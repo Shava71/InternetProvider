@@ -1,0 +1,41 @@
+﻿@page
+@model InternetProvider.Pages.Tasks.Task7Model
+@{
+    ViewData["Title"] = "Client View Techno";
+}
+
+<h2>Client View Techno</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Номер клиента</th>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Адрес</th>
+            <th>Номер телефона</th>
+            <th>Электронная почта</th>
+            <th>Дата рождения</th>
+            <th>Номер договора</th>
+            <th>Номер тарифа</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var client in Model.ClientviewTechnos)
+        {
+            <tr>
+                <td>@client.НомерКлиента</td>
+                <td>@client.Фамилия</td>
+                <td>@client.Имя</td>
+                <td>@client.Отчество</td>
+                <td>@client.Адрес</td>
+                <td>@client.НомерТелефона</td>
+                <td>@client.ЭлектроннаяПочта</td>
+                <td>@client.ДатаРождения</td>
+                <td>@client.НомерДоговора</td>
+                <td>@client.НомерТарифа</td>
+            </tr>
+        }
+    </tbody>
+</table>

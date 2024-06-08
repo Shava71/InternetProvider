@@ -1,0 +1,41 @@
+﻿@page
+@model InternetProvider.Pages.Tasks.Task6Model
+@{
+    ViewData["Title"] = "Client Payments Ordered By Date";
+}
+
+<h2>Клиенты, заплатившие сумму больше введённой: </h2>
+
+<form method="get">
+    <div class="form-group">
+        <label for="amountInput">Введите сумму:</label>
+        <input type="text" class="form-control" id="amountInput" name="Amount">
+    </div>
+    <button type="submit" class="btn btn-primary">Применить</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Номер договора</th>
+            <th>Дата заключения</th>
+            <th>Номер тарифа</th>
+            <th>Срок действия</th>
+            <th>Цифровое ТВ</th>
+            <th>Аренда роутера</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var deal in Model.Deals)
+        {
+            <tr>
+                <td>@deal.НомерДоговора</td>
+                <td>@deal.ДатаЗаключения</td>
+                <td>@deal.НомерТарифа</td>
+                <td>@deal.СрокДействия</td>
+                <td>@(deal.ЦифровоеТв ? "Да" : "Нет")</td>
+                <td>@(deal.АрендаРоутера ? "Да" : "Нет")</td>
+            </tr>
+        }
+    </tbody>
+</table>

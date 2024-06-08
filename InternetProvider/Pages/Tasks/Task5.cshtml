@@ -1,0 +1,29 @@
+﻿@page
+@model InternetProvider.Pages.Tasks.Task5Model
+@{
+    ViewData["Title"] = "Выбор тарифа";
+}
+
+<h2>Выберите тариф</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label for="SelectedTariffId">Тариф</label>
+        <select id="SelectedTariffId" name="TariffSelection.SelectedTariffId" class="form-control">
+            @foreach (var tariff in Model.TariffSelection.Tariffs)
+            {
+                <option value="@tariff.НомерТарифа">
+                    @tariff.Название
+                </option>
+            }
+        </select>
+
+
+    </div>
+    <button type="submit" class="btn btn-primary">Получить количество клиентов</button>
+</form>
+
+@if (Model.TariffSelection.TotalClients > 0)
+{
+    <h3>Общее количество клиентов для выбранного тарифа: @Model.TariffSelection.TotalClients</h3>
+}

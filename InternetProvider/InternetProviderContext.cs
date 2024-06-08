@@ -1,29 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using InternetProvider.Models;
 using Microsoft.EntityFrameworkCore;
+using InternetProvider.Models;
 
 namespace InternetProvider;
 
+
 public partial class InternetProviderContext : DbContext
 {
-    public InternetProviderContext()
-    {
-    }
-
     public InternetProviderContext(DbContextOptions<InternetProviderContext> options)
-        : base(options)
+             : base(options)
     {
     }
+    
+    public DbSet<Client> Clients { get; set; }
+    public DbSet<Deal> Deals { get; set; }
+    public DbSet<Tarrif> Tariffs { get; set; }
 
-    public virtual DbSet<Client> Clients { get; set; }
+    public virtual DbSet<Client> Clientss { get; set; }
 
     public virtual DbSet<Clientum> ClientAs { get; set; }
 
     public virtual DbSet<Clientview> Clientviews { get; set; }
 
-    public virtual DbSet<ClientviewTechno> ClientviewTechnos { get; set; }
+    public virtual DbSet<ClientViewTechno> ClientviewTechnos { get; set; }
 
-    public virtual DbSet<Deal> Deals { get; set; }
+    public virtual DbSet<Deal> Dealss { get; set; }
 
     public virtual DbSet<Payment> Payments { get; set; }
 
@@ -34,6 +37,49 @@ public partial class InternetProviderContext : DbContext
     public virtual DbSet<Trafficview> Trafficviews { get; set; }
 
     public virtual DbSet<TrafficviewTechno> TrafficviewTechnos { get; set; }
+    //--Task5--
+    public async Task<long> GetTotalClientsByTariffAsync(int tariffId)
+    {
+        var result = await Database.SqlQueryRaw<long>(
+            "SELECT * FROM total_clients_by_tariff({0})", tariffId).ToListAsync();
+        return result.Count > 0 ? result[0] : 0;
+    }
+
+    public async Task<List<Tarrif>> GetTariffsAsync()
+    {
+        return await Tariffs.ToListAsync();
+    }
+
+    //--Task6--
+   
+    public DbSet<Traffic> Traffic { get; set; }
+
+
+    //protected override void OnModelCreating(ModelBuilder modelBuilder)
+    //{
+    //    // Здесь вы можете настроить дополнительные параметры моделей, если это необходимо.
+    //}
+
+
+    //public virtual DbSet<Client> Clientss { get; set; }
+
+    //public virtual DbSet<Clientum> ClientAs { get; set; }
+
+    //public virtual DbSet<Clientview> Clientviews { get; set; }
+
+    //public virtual DbSet<ClientviewTechno> ClientviewTechnos { get; set; }
+
+    //public virtual DbSet<Deal> Dealss { get; set; }
+
+    //public virtual DbSet<Payment> Payments { get; set; }
+
+    //public virtual DbSet<Tarrif> Tarrifs { get; set; }
+
+    //public virtual DbSet<Traffic> Traffics { get; set; }
+
+    //public virtual DbSet<Trafficview> Trafficviews { get; set; }
+
+    //public virtual DbSet<TrafficviewTechno> TrafficviewTechnos { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -120,7 +166,7 @@ public partial class InternetProviderContext : DbContext
                 .HasColumnName("Электронная почта");
         });
 
-        modelBuilder.Entity<ClientviewTechno>(entity =>
+        modelBuilder.Entity<ClientViewTechno>(entity =>
         {
             entity
                 .HasNoKey()
@@ -232,7 +278,7 @@ public partial class InternetProviderContext : DbContext
             entity.Property(e => e.НомерКлиента).HasColumnName("Номер клиента");
             entity.Property(e => e.ОбъёмМбайт).HasColumnName("Объём (мбайт)");
         });
-
+        modelBuilder.Entity<ClientViewTechno>().HasNoKey();
         OnModelCreatingPartial(modelBuilder);
     }
 

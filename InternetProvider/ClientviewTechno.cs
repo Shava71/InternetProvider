@@ -19,7 +19,7 @@ public partial class ClientviewTechno
 
     public string? ЭлектроннаяПочта { get; set; }
 
-    public DateOnly? ДатаРождения { get; set; }
+    public DateTime? ДатаРождения { get; set; }
 
     public int? НомерДоговора { get; set; }
 
